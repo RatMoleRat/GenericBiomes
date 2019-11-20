@@ -1,0 +1,15 @@
+{
+    "id" : "GenericBiomes",
+    "version" : "0.1.0-SNAPSHOT",
+    "author" : "Qwertygiy",
+    "displayName" : "GenericBiomes",
+    "description" : "Simplified versions of real-world ecoregions, like Rainforests and Marshes",
+    "dependencies" : [
+        {"id": "BiomesAPI", "minVersion": "1.0.0"},
+        {"id": "CoreBlocks", "minVersion": "1.0.0"},
+        {"id": "Core", "minVersion": "2.2.1"},
+        {"id": "PlantPack", "minVersion": "1.0.0"},
+        {"id": "Soils", "minVersion": "0.2.0"}
+    ],
+    "serverSideOnly" : false
+}
