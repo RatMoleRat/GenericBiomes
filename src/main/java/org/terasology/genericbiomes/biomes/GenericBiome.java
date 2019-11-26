@@ -16,8 +16,15 @@
 package org.terasology.genericbiomes.biomes;
 
 import org.terasology.biomesAPI.Biome;
+import org.terasology.biomesAPI.ConditionalBiome;
+import org.terasology.math.geom.Vector2f;
+import org.terasology.world.generation.facets.base.FieldFacet2D;
 
-public enum GenericBiome implements Biome {
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public enum GenericBiome implements ConditionalBiome {
     BAYOU("Bayou"),
     MARSH("Marsh"),
     PINEFOREST("Pine Forest"),
@@ -29,6 +36,7 @@ public enum GenericBiome implements Biome {
 
     private final String id;
     private final String name;
+    protected Map<Class<? extends FieldFacet2D>, Vector2f> limitedFacets = new HashMap<>();
 
     GenericBiome(String name) {
         this.id = "Generic:" + name().toLowerCase();
@@ -48,6 +56,35 @@ public enum GenericBiome implements Biome {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public boolean isValid(Class<? extends FieldFacet2D> facetClass, Float value) {
+        Vector2f constraints = limitedFacets.get(facetClass);
+        return constraints == null || (value >= constraints.x && value <= constraints.y);
+    }
+
+    @Override
+    public Set<Class<? extends FieldFacet2D>> getLimitedFacets() {
+        return limitedFacets.keySet();
+    }
+
+    @Override
+    public void setLowerLimit(Class<? extends FieldFacet2D> facetClass, Float minimum) {
+        limitedFacets.compute(facetClass, (k, v) -> {
+            if (v == null) v = new Vector2f(minimum, Float.MAX_VALUE);
+            v.x = minimum;
+            return v;
+        });
+    }
+
+    @Override
+    public void setUpperLimit(Class<? extends FieldFacet2D> facetClass, Float maximum) {
+        limitedFacets.compute(facetClass, (k, v) -> {
+            if (v == null) v = new Vector2f(Float.MIN_VALUE, maximum);
+            v.y = maximum;
+            return v;
+        });
     }
 
 }

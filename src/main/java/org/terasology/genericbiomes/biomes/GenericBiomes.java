@@ -19,6 +19,8 @@ import org.terasology.biomesAPI.BiomeRegistry;
 import org.terasology.entitySystem.systems.BaseComponentSystem;
 import org.terasology.entitySystem.systems.RegisterSystem;
 import org.terasology.registry.In;
+import org.terasology.world.generation.facets.SurfaceHumidityFacet;
+import org.terasology.world.generation.facets.SurfaceTemperatureFacet;
 
 import java.util.stream.Stream;
 
@@ -35,6 +37,19 @@ public class GenericBiomes extends BaseComponentSystem {
      */
     @Override
     public void preBegin() {
+        GenericBiome.MARSH.setLimits(SurfaceHumidityFacet.class, 0.5F, 0.8F);
+        GenericBiome.MARSH.setLowerLimit(SurfaceTemperatureFacet.class, 0.3F);
+        GenericBiome.BAYOU.setLowerLimit(SurfaceHumidityFacet.class, 0.6F);
+        GenericBiome.BAYOU.setLimits(SurfaceTemperatureFacet.class, 0.3F, 0.8F);
+        GenericBiome.PINEFOREST.setUpperLimit(SurfaceTemperatureFacet.class, 0.6F);
+        GenericBiome.SAVANNAH.setLimits(SurfaceHumidityFacet.class, 0.1F, 0.4F);
+        GenericBiome.SAVANNAH.setLowerLimit(SurfaceTemperatureFacet.class, 0.5F);
+        GenericBiome.SHRUBLANDS.setLimits(SurfaceHumidityFacet.class, 0.1F, 0.7F);
+        GenericBiome.SHRUBLANDS.setLimits(SurfaceTemperatureFacet.class, 0.3F, 0.7F);
+        GenericBiome.STEPPE.setLimits(SurfaceTemperatureFacet.class, 0.1F, 0.4F);
+        GenericBiome.STEPPE.setUpperLimit(SurfaceHumidityFacet.class, 0.6F);
+        GenericBiome.STONYDESERT.setLowerLimit(SurfaceTemperatureFacet.class, 0.7F);
+        GenericBiome.STONYDESERT.setUpperLimit(SurfaceHumidityFacet.class, 0.2F);
         Stream.of(GenericBiome.values()).forEach(biomeRegistry::registerBiome);
     }
 }
