@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.genericbiomes.worldgen;
+package org.terasology.genericbiomes.worldgen.trees;
 
 import org.terasology.core.world.CoreBiome;
 import org.terasology.core.world.generator.facetProviders.DefaultTreeProvider;
@@ -56,8 +56,14 @@ public class GenericTreeProvider extends DefaultTreeProvider {
 
         register(CoreBiome.DESERT, Trees.cactus(), 0.04f);
 
+        register(CoreBiome.BEACH, GenericTrees.palmTree(), 0.2F);
+
         register(GenericBiome.MARSH, Trees.oakTree(), 0.02f);
         register(GenericBiome.MARSH, Trees.oakVariationTree(), 0.02f);
+        register(GenericBiome.MARSH, GenericTrees.palmTree(), 0.1f);
+
+        register(GenericBiome.RAINFOREST, GenericTrees.palmTree(), 0.2F);
+        register(GenericBiome.RAINFOREST, Trees.redTree(), 0.01F);
 
         register(GenericBiome.PINEFOREST, Trees.pineTree(), 0.75f);
 

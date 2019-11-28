@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.genericbiomes.worldgen;
+package org.terasology.genericbiomes.worldgen.trees;
 
 import com.google.common.collect.ImmutableMap;
 import org.terasology.core.world.generator.trees.TreeGenerator;
@@ -34,5 +34,9 @@ public final class GenericTrees {
                 4, (float) Math.toRadians(30))
                 .setLeafType(new BlockUri("PlantPack:MapleLeaf"))
                 .setBarkType(new BlockUri("PlantPack:MapleTrunk"));
+    }
+
+    public static TreeGenerator palmTree() {
+        return new PalmTreeGenerator().setLeafType("PlantPack:AcaiPalmLeaf").setTrunkType("PlantPack:AcaiPalmTrunk");
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.terasology.genericbiomes.worldgen;
+package org.terasology.genericbiomes.worldgen.trees;
 
 import org.terasology.core.world.generator.rasterizers.TreeRasterizer;
 import org.terasology.registry.CoreRegistry;

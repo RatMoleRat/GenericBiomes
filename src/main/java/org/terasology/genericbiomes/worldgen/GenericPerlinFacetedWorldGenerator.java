@@ -34,6 +34,8 @@ import org.terasology.core.world.generator.rasterizers.SolidRasterizer;
 import org.terasology.core.world.generator.rasterizers.TreeRasterizer;
 import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.genericbiomes.worldgen.trees.GenericTreeProvider;
+import org.terasology.genericbiomes.worldgen.trees.GenericTreeRasterizer;
 import org.terasology.genericbiomes.biomes.GenericBiome;
 import org.terasology.logic.spawner.FixedSpawner;
 import org.terasology.math.geom.ImmutableVector2i;
