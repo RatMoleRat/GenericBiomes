@@ -16,6 +16,7 @@
 package org.terasology.genericbiomes.worldgen.trees;
 
 import com.google.common.collect.ImmutableMap;
+import org.terasology.core.world.generator.rasterizers.RasterFilters;
 import org.terasology.core.world.generator.trees.TreeGenerator;
 import org.terasology.core.world.generator.trees.TreeGeneratorLSystem;
 import org.terasology.math.LSystemRule;
@@ -37,6 +38,6 @@ public final class GenericTrees {
     }
 
     public static TreeGenerator palmTree() {
-        return new PalmTreeGenerator().setLeafType("PlantPack:AcaiPalmLeaf").setTrunkType("PlantPack:AcaiPalmTrunk");
+        return new PalmTreeGenerator().setLeafType("PlantPack:AcaiPalmLeaf").setTrunkType("PlantPack:AcaiPalmTrunk").addFilter(RasterFilters.whiteListBlocks("soil", "grass", "dirt", "sand"));
     }
 }

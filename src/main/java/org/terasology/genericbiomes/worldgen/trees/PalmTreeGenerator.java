@@ -15,11 +15,17 @@
  */
 package org.terasology.genericbiomes.worldgen.trees;
 
+import com.google.common.base.Predicate;
+import com.google.common.collect.Lists;
+import org.terasology.core.world.generator.rasterizers.RasterFilters;
 import org.terasology.core.world.generator.trees.AbstractTreeGenerator;
+import org.terasology.math.geom.Vector3i;
 import org.terasology.utilities.random.Random;
 import org.terasology.world.block.Block;
 import org.terasology.world.block.BlockManager;
 import org.terasology.world.chunks.CoreChunk;
+
+import java.util.List;
 
 public class PalmTreeGenerator extends AbstractTreeGenerator {
 
@@ -27,6 +33,7 @@ public class PalmTreeGenerator extends AbstractTreeGenerator {
     public int tallestHeight;
     public String trunkType;
     public String leafType;
+    private List<Predicate<RasterFilters.ChunkSpot>> filters = Lists.newArrayList();
 
     public PalmTreeGenerator()
     {
@@ -52,8 +59,37 @@ public class PalmTreeGenerator extends AbstractTreeGenerator {
         return this;
     }
 
+    public PalmTreeGenerator addFilter(Predicate<RasterFilters.ChunkSpot> filter)
+    {
+        filters.add(filter);
+        return this;
+    }
+
+    public PalmTreeGenerator removeFilter(Predicate<RasterFilters.ChunkSpot> filter)
+    {
+        filters.remove(filter);
+        return this;
+    }
+
+    public List<Predicate<RasterFilters.ChunkSpot>> getFilters()
+    {
+        return filters;
+    }
+
+    private boolean applyFilters(CoreChunk chunk, int x, int y, int z)
+    {
+        Vector3i object = new Vector3i(x, y, z);
+        RasterFilters.ChunkSpot spot = new RasterFilters.ChunkSpot(chunk, object);
+        for(Predicate<RasterFilters.ChunkSpot> filter : getFilters())
+        {
+            if (!filter.apply(spot)) return false;
+        }
+        return true;
+    }
+
     @Override
     public void generate(BlockManager blockManager, CoreChunk view, Random rand, int posX, int posY, int posZ) {
+        if (!applyFilters(view, posX, posY, posZ)) return;
         int height = rand.nextInt(smallestHeight, tallestHeight + 1);
         Block trunk = blockManager.getBlock(trunkType);
         Block leafNorth = blockManager.getBlock(leafType + ".FRONT");
@@ -82,6 +118,13 @@ public class PalmTreeGenerator extends AbstractTreeGenerator {
             safelySetBlock(view, posX, posY + height - 1, posZ + 1, leafSouth);
             safelySetBlock(view, posX - 1, posY + height - 1, posZ, leafEast);
             safelySetBlock(view, posX + 1, posY + height - 1, posZ, leafWest);
+        }
+        if (rand.nextBoolean())
+        {
+            safelySetBlock(view, posX, posY + height, posZ - 3, leafNorth);
+            safelySetBlock(view, posX, posY + height, posZ + 3, leafSouth);
+            safelySetBlock(view, posX - 3, posY + height, posZ, leafEast);
+            safelySetBlock(view, posX + 3, posY + height, posZ, leafWest);
         }
     }
 }
