@@ -40,7 +40,7 @@ public class GenericBiomeColors implements Function<Biome, Color> {
         biomeColors.put(GenericBiome.RAINFOREST, new Color(0x1b9e00ff));
         biomeColors.put(GenericBiome.SHRUBLANDS, new Color(0x60ae50ff));
         biomeColors.put(GenericBiome.STEPPE, new Color(0x899d59ff));
-        biomeColors.put(GenericBiome.STONYDESERT, new Color(0x595931ff));
+        biomeColors.put(GenericBiome.STONYDESERT, new Color(0xAA5931ff));
     }
 
     @Override

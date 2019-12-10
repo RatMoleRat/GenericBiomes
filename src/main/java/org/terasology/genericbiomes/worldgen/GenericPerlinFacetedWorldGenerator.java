@@ -81,7 +81,7 @@ public class GenericPerlinFacetedWorldGenerator extends BaseFacetedWorldGenerato
                 .addProvider(new GenericTreeProvider())
                 .addProvider(new PlateauProvider(spawnPos, seaLevel + 4, 10, 30))
                         //.addRasterizer(new GroundRasterizer(blockManager))
-                .addRasterizer(new SolidRasterizer())
+                .addRasterizer(new GenericSolidRasterizer())
                 .addPlugins()
                 .addRasterizer(new FloraRasterizer())
                 .addRasterizer(new GenericTreeRasterizer());

@@ -44,6 +44,8 @@ public class GenericSolidRasterizer implements WorldRasterizer {
     private Block grass;
     private Block snow;
     private Block dirt;
+    private Block crackedClay;
+    private Block hardenedClay;
     private BiomeRegistry biomeRegistry;
 
     @Override
@@ -57,6 +59,8 @@ public class GenericSolidRasterizer implements WorldRasterizer {
         grass = blockManager.getBlock("CoreBlocks:Grass");
         snow = blockManager.getBlock("CoreBlocks:Snow");
         dirt = blockManager.getBlock("CoreBlocks:Dirt");
+        crackedClay = blockManager.getBlock("GenericRocks:CrackedClay");
+        hardenedClay = blockManager.getBlock("GenericRocks:HardenedClay");
     }
 
     @Override
@@ -136,6 +140,13 @@ public class GenericSolidRasterizer implements WorldRasterizer {
                 } else {
                     return stone;
                 }
+            case "Stony Desert":
+                if (depth == 0) {
+                    return crackedClay;
+                } else if (depth < 5 || height > seaLevel + 32) {
+                    return hardenedClay;
+                }
+                return stone;
             default:
                 if (depth == 0 && height > seaLevel && height < seaLevel + 96) {
                     return grass;

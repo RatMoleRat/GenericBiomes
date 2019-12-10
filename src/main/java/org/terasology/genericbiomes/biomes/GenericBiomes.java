@@ -48,8 +48,8 @@ public class GenericBiomes extends BaseComponentSystem {
         GenericBiome.SHRUBLANDS.setLimits(SurfaceTemperatureFacet.class, 0.3F, 0.7F);
         GenericBiome.STEPPE.setLimits(SurfaceTemperatureFacet.class, 0.1F, 0.4F);
         GenericBiome.STEPPE.setUpperLimit(SurfaceHumidityFacet.class, 0.6F);
-        GenericBiome.STONYDESERT.setLowerLimit(SurfaceTemperatureFacet.class, 0.7F);
-        GenericBiome.STONYDESERT.setUpperLimit(SurfaceHumidityFacet.class, 0.2F);
+        GenericBiome.STONYDESERT.setLowerLimit(SurfaceTemperatureFacet.class, 0.6F);
+        GenericBiome.STONYDESERT.setUpperLimit(SurfaceHumidityFacet.class, 0.3F);
         Stream.of(GenericBiome.values()).forEach(biomeRegistry::registerBiome);
     }
 }

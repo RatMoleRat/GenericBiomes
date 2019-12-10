@@ -93,7 +93,7 @@ public class GenericBiomeProvider implements FacetProvider {
             } else {
                 List<Biome> choices;
                 if (biomeRegistry == null) {
-                    Biome[] biomes = new Biome[]{CoreBiome.FOREST, CoreBiome.SNOW, CoreBiome.PLAINS, CoreBiome.MOUNTAINS, CoreBiome.DESERT, GenericBiome.PINEFOREST, GenericBiome.MARSH, GenericBiome.SAVANNAH, GenericBiome.RAINFOREST};
+                    Biome[] biomes = new Biome[]{CoreBiome.FOREST, CoreBiome.SNOW, CoreBiome.PLAINS, CoreBiome.MOUNTAINS, CoreBiome.DESERT, GenericBiome.PINEFOREST, GenericBiome.MARSH, GenericBiome.SAVANNAH, GenericBiome.RAINFOREST, GenericBiome.STONYDESERT};
                     choices = Arrays.stream(biomes).map(ConditionalBiome.class::cast).filter(b -> b.isValid(region, pos)).collect(Collectors.toList());
                 } else {
                     choices = ((BiomeManager)biomeRegistry).getValidBiomes(region, pos, true);
@@ -103,7 +103,7 @@ public class GenericBiomeProvider implements FacetProvider {
                 {
                     choice = choices.get((choices.size() + zone) % choices.size());
                 }
-                //if (choice == null) choice = CoreBiome.FOREST;
+                //choice = GenericBiome.STONYDESERT;
                 biomeFacet.set(pos, choice);
             }
         }

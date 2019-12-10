@@ -9,7 +9,8 @@
         {"id": "CoreBlocks", "minVersion": "1.0.0"},
         {"id": "Core", "minVersion": "2.2.1"},
         {"id": "PlantPack", "minVersion": "1.0.0"},
-        {"id": "Soils", "minVersion": "0.2.0"}
+        {"id": "Soils", "minVersion": "0.2.0"},
+        {"id": "GenericRocks", "minVersion": "0.1.0"}
     ],
     "serverSideOnly" : false
 }
