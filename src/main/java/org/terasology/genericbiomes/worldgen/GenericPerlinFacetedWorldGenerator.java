@@ -15,6 +15,7 @@
  */
 package org.terasology.genericbiomes.worldgen;
 
+import org.terasology.core.world.CoreBiome;
 import org.terasology.core.world.generator.facetProviders.BiomeProvider;
 import org.terasology.core.world.generator.facetProviders.DefaultFloraProvider;
 import org.terasology.core.world.generator.facetProviders.DefaultTreeProvider;
@@ -28,10 +29,12 @@ import org.terasology.core.world.generator.facetProviders.PlateauProvider;
 import org.terasology.core.world.generator.facetProviders.SeaLevelProvider;
 import org.terasology.core.world.generator.facetProviders.SurfaceToDensityProvider;
 import org.terasology.core.world.generator.rasterizers.FloraRasterizer;
+import org.terasology.core.world.generator.rasterizers.FloraType;
 import org.terasology.core.world.generator.rasterizers.SolidRasterizer;
 import org.terasology.core.world.generator.rasterizers.TreeRasterizer;
 import org.terasology.engine.SimpleUri;
 import org.terasology.entitySystem.entity.EntityRef;
+import org.terasology.genericbiomes.biomes.GenericBiome;
 import org.terasology.logic.spawner.FixedSpawner;
 import org.terasology.math.geom.ImmutableVector2i;
 import org.terasology.math.geom.Vector3f;
@@ -77,12 +80,22 @@ public class GenericPerlinFacetedWorldGenerator extends BaseFacetedWorldGenerato
                 .addProvider(new PerlinZoneProvider())
                 .addProvider(new GenericBiomeProvider())
                 .addProvider(new SurfaceToDensityProvider())
-                .addProvider(new DefaultFloraProvider())
+                .addProvider(new DefaultFloraProvider()
+                        .addNewFlora(GenericBiome.STONYDESERT, FloraType.GRASS, 0.01F)
+                        .addNewFlora(GenericBiome.STONYDESERT, FloraType.FLOWER, 0.02F)
+                        .addNewFlora(GenericBiome.SHRUBLANDS, FloraType.GRASS, 0.1F)
+                        .addNewFlora(GenericBiome.SHRUBLANDS, FloraType.FLOWER, 0.3F)
+                        .addNewFlora(GenericBiome.STEPPE, FloraType.GRASS, 0.3F)
+                        .addNewFlora(GenericBiome.STEPPE, FloraType.FLOWER, 0.05F)
+                        .addNewFlora(CoreBiome.DESERT, FloraType.GRASS, 0.1F)
+                        .addNewFlora(CoreBiome.DESERT, FloraType.FLOWER, 0.1F)
+                )
                 .addProvider(new GenericTreeProvider())
                 .addProvider(new PlateauProvider(spawnPos, seaLevel + 4, 10, 30))
                         //.addRasterizer(new GroundRasterizer(blockManager))
                 .addRasterizer(new GenericSolidRasterizer())
                 .addPlugins()
+                .addRasterizer(new DesertFloraRasterizer())
                 .addRasterizer(new FloraRasterizer())
                 .addRasterizer(new GenericTreeRasterizer());
     }
