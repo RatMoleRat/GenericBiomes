@@ -15,18 +15,19 @@
  */
 package org.terasology.genericbiomes.worldgen.trees;
 
+import com.google.common.base.Predicate;
 import org.terasology.core.world.CoreBiome;
 import org.terasology.core.world.generator.facetProviders.DefaultTreeProvider;
 import org.terasology.core.world.generator.facets.BiomeFacet;
 import org.terasology.core.world.generator.facets.TreeFacet;
 import org.terasology.core.world.generator.trees.Trees;
 import org.terasology.genericbiomes.biomes.GenericBiome;
-import org.terasology.world.generation.Facet;
-import org.terasology.world.generation.FacetBorder;
-import org.terasology.world.generation.Produces;
-import org.terasology.world.generation.Requires;
+import org.terasology.math.geom.Vector3i;
+import org.terasology.world.generation.*;
 import org.terasology.world.generation.facets.SeaLevelFacet;
 import org.terasology.world.generation.facets.SurfaceHeightFacet;
+
+import java.util.List;
 
 @Produces(TreeFacet.class)
 @Requires({
@@ -66,6 +67,26 @@ public class GenericTreeProvider extends DefaultTreeProvider {
         register(GenericBiome.RAINFOREST, Trees.redTree(), 0.01F);
 
         register(GenericBiome.PINEFOREST, Trees.pineTree(), 0.75f);
+    }
 
+    @Override
+    public void process(GeneratingRegion region) {
+        SurfaceHeightFacet surface = region.getRegionFacet(SurfaceHeightFacet.class);
+        BiomeFacet biome = region.getRegionFacet(BiomeFacet.class);
+
+        List<Predicate<Vector3i>> filters = getFilters(region);
+
+        // these value are derived from the maximum tree extents as
+        // computed by the TreeTests class. Birch is the highest with 32
+        // and Pine has 13 radius.
+        // These values must be identical in the class annotations.
+        int maxRad = 13;
+        int maxHeight = 32;
+        Border3D borderForTreeFacet = region.getBorderForFacet(TreeFacet.class);
+        TreeFacet facet = new TreeFacet(region.getRegion(), borderForTreeFacet.extendBy(1, maxHeight, maxRad));
+
+        populateFacet(facet, surface, biome, filters);
+
+        region.setRegionFacet(TreeFacet.class, facet);
     }
 }

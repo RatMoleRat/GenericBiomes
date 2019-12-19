@@ -38,6 +38,6 @@ public final class GenericTrees {
     }
 
     public static TreeGenerator palmTree() {
-        return new PalmTreeGenerator().setLeafType("PlantPack:AcaiPalmLeaf").setTrunkType("PlantPack:AcaiPalmTrunk").addFilter(RasterFilters.whiteListBlocks("soil", "grass", "dirt", "sand"));
+        return new PalmTreeGenerator().setLeafType("PlantPack:AcaiPalmLeaf").setTrunkType("PlantPack:AcaiPalmTrunk");
     }
 }
